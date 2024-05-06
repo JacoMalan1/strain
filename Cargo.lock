@@ -43,8 +43,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "stress"
-version = "0.1.0"
+name = "strain"
+version = "0.0.1"
 dependencies = [
  "rug",
 ]

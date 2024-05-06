@@ -2,6 +2,7 @@
 name = "strain"
 version = "0.0.1"
 edition = "2021"
+description = "A CPU stressing utility written in Rust"
 
 [dependencies]
 rug = "1.24.1"
