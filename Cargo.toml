@@ -7,6 +7,7 @@ license = "MIT"
 
 [dependencies]
 rug = "1.24.1"
+gmp-mpfr-sys = { version = "1.6.2", features = ["default", "use-system-libs"] }
 
 [profile.release]
 strip = "symbols"
