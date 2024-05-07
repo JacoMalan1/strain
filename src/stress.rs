@@ -1,5 +1,4 @@
 use std::{
-    io::Write,
     sync::mpsc::{Receiver, Sender},
     thread::JoinHandle,
 };
@@ -7,7 +6,7 @@ use std::{
 use rug::ops::Pow;
 
 pub trait StressStrategy: Send {
-    fn run(self);
+    fn run(&mut self);
     fn name<'a>(&self) -> &'a str;
 }
 
@@ -17,16 +16,12 @@ pub struct LucasLehmerWorker {
 }
 
 pub struct LucasLehmer {
-    workers: Vec<LucasLehmerWorker>,
     num_workers: usize,
 }
 
 impl LucasLehmer {
     pub fn new(num_workers: usize) -> Self {
-        Self {
-            workers: vec![],
-            num_workers,
-        }
+        Self { num_workers }
     }
 
     fn worker(receiver: Receiver<u32>) {
@@ -39,9 +34,7 @@ impl LucasLehmer {
                 }
 
                 if s.is_zero() {
-                    let _ = std::io::stdout()
-                        .lock()
-                        .write_fmt(format_args!("2^{} - 1 is prime\n", power));
+                    log::debug!("2^{} - 1 is prime", power);
                 }
             }
         }
@@ -94,10 +87,11 @@ impl Iterator for PrimeIter {
 }
 
 impl StressStrategy for LucasLehmer {
-    fn run(mut self) {
+    fn run(&mut self) {
+        let mut workers = vec![];
         for _ in 0..self.num_workers {
             let (tx, rx) = std::sync::mpsc::channel();
-            self.workers.push(LucasLehmerWorker {
+            workers.push(LucasLehmerWorker {
                 sender: tx,
                 join_handle: std::thread::spawn(move || {
                     Self::worker(rx);
@@ -107,7 +101,7 @@ impl StressStrategy for LucasLehmer {
 
         let mut prime_iter = PrimeIter::new(1000);
         'controller: loop {
-            for worker in self.workers.iter() {
+            for worker in workers.iter() {
                 match prime_iter.next() {
                     Some(power) => {
                         worker.sender.send(power).unwrap();
@@ -119,7 +113,7 @@ impl StressStrategy for LucasLehmer {
             }
         }
 
-        self.workers.into_iter().for_each(|worker| {
+        workers.into_iter().for_each(|worker| {
             worker.join_handle.join().unwrap();
         })
     }

@@ -8,6 +8,10 @@ license = "MIT"
 [dependencies]
 rug = "1.24.1"
 gmp-mpfr-sys = { version = "1.6.2", features = ["default", "use-system-libs"] }
+clap = { version = "4.5.4", features = ["derive"] }
+log = "0.4.21"
+humantime = "2.1.0"
+fern = "0.6.2"
 
 [profile.release]
 strip = "symbols"
