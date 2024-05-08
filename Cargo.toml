@@ -1,9 +1,9 @@
 [package]
 name = "strain"
-version = "0.0.3"
+version = "0.0.4"
 edition = "2021"
 description = "A CPU stressing utility written in Rust"
-license = "MIT"
+license = "GPL-3.0-or-later"
 
 [dependencies]
 rug = { version = "1.24.1", features = ["default", "complex"] }
