@@ -2,3 +2,4 @@ List of strategies:
 
 `lucas-lehmer` - Factors successively larger primes using the Lucas-Lehmer primality test.
 `mandelbrot` - Computes the members of the mandelbrot set in the square region with corners: -2 + 2i, and 2 - 2i
+`rsa` - Attempts to factor RSA-1536 with fermat factorization

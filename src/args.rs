@@ -45,6 +45,7 @@ pub struct StrainArgs {
 pub enum StressingStrategies {
     LucasLehmer,
     Mandelbrot,
+    RSA,
 }
 
 impl From<StressingStrategies> for &'static str {
@@ -52,6 +53,7 @@ impl From<StressingStrategies> for &'static str {
         match value {
             StressingStrategies::LucasLehmer => "lucas-lehmer",
             StressingStrategies::Mandelbrot => "mandelbrot",
+            StressingStrategies::RSA => "rsa",
         }
     }
 }
@@ -76,6 +78,7 @@ impl FromStr for StressingStrategies {
         match input {
             "lucas-lehmer" => Ok(Self::LucasLehmer),
             "mandelbrot" => Ok(Self::Mandelbrot),
+            "rsa" => Ok(Self::RSA),
             _ => Err(ParseStrategyError::from("No such stressing strategy")),
         }
     }
