@@ -1,19 +1,17 @@
-use std::{io::Write, str::FromStr, time::SystemTime};
-
-use clap::Parser;
-use log::LevelFilter;
-
 use crate::{
     args::{StrainArgs, StressingStrategies},
     lucas_lehmer::LucasLehmer,
     mandelbrot::Mandelbrot,
     stress::StressStrategy,
 };
+use clap::Parser;
+use log::LevelFilter;
+use std::{io::Write, str::FromStr, time::SystemTime};
 
-mod args;
-mod lucas_lehmer;
-mod mandelbrot;
-mod stress;
+pub mod args;
+pub mod lucas_lehmer;
+pub mod mandelbrot;
+pub mod stress;
 
 fn setup_logger(log_level: log::LevelFilter) -> Result<(), fern::InitError> {
     fern::Dispatch::new()
