@@ -66,6 +66,7 @@ fn main() {
             args.mandelbrot_precision,
             rug::Float::with_val(args.mandelbrot_precision, args.mandelbrot_step_size),
             rug::Float::with_val(args.mandelbrot_precision, args.mandelbrot_threshold),
+            args.mandelbrot_iterations,
         )),
     };
 

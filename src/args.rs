@@ -34,6 +34,10 @@ pub struct StrainArgs {
     /// Mandelbrot test precision (in bits)
     #[arg(short = 'P', long, default_value_t = 128)]
     pub mandelbrot_precision: u32,
+
+    /// Mandelbrot set maximum iterations
+    #[arg(short = 'I', long, default_value_t = 1_000_000)]
+    pub mandelbrot_iterations: usize,
 }
 
 #[derive(Debug, Copy, Clone)]
