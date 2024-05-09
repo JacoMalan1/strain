@@ -2,6 +2,7 @@ use crate::{
     args::{StrainArgs, StressingStrategies},
     lucas_lehmer::LucasLehmer,
     mandelbrot::Mandelbrot,
+    rsa::RSA,
     stress::StressStrategy,
 };
 use clap::Parser;
@@ -11,6 +12,7 @@ use std::{io::Write, str::FromStr, time::SystemTime};
 pub mod args;
 pub mod lucas_lehmer;
 pub mod mandelbrot;
+pub mod rsa;
 pub mod stress;
 
 fn setup_logger(log_level: log::LevelFilter) -> Result<(), fern::InitError> {
@@ -65,6 +67,7 @@ fn main() {
             rug::Float::with_val(args.mandelbrot_precision, args.mandelbrot_threshold),
             args.mandelbrot_iterations,
         )),
+        StressingStrategies::RSA => Box::new(RSA::new(threads)),
     };
 
     log::info!("Starting {}...", strategy.name());
