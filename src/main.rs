@@ -1,4 +1,4 @@
-use std::{str::FromStr, time::SystemTime};
+use std::{io::Write, str::FromStr, time::SystemTime};
 
 use clap::Parser;
 use log::LevelFilter;
@@ -42,11 +42,10 @@ fn main() {
     .expect("Failed to setup logger");
 
     if args.list_strategies {
-        println!("List of available stressing strategies: ");
-        println!("lucas-lehmer - Factor successively bigger Mersenne primes. (Use with caution! May cause CPU to become VERY HOT!)");
-        println!(
-            "mandelbrot - Calculate the members of the Mandelbrot set. (Medium intensity test)"
-        );
+        print!(include_str!("strategies.txt"));
+        std::io::stdout()
+            .flush()
+            .expect("Failed to write to stdout");
         return;
     }
 
