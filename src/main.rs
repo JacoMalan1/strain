@@ -11,6 +11,7 @@ use std::{io::Write, str::FromStr, time::SystemTime};
 pub mod args;
 pub mod lucas_lehmer;
 pub mod mandelbrot;
+pub mod rsa;
 pub mod stress;
 
 fn setup_logger(log_level: log::LevelFilter) -> Result<(), fern::InitError> {
