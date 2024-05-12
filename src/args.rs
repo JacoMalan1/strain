@@ -1,4 +1,4 @@
-use std::str::FromStr;
+use std::{path::PathBuf, str::FromStr};
 
 use clap::Parser;
 
@@ -38,6 +38,10 @@ pub struct StrainArgs {
     /// Mandelbrot set maximum iterations
     #[arg(short = 'I', long, default_value_t = 1_000_000)]
     pub mandelbrot_iterations: usize,
+
+    /// Write logs to file
+    #[arg(short = 'L', long)]
+    pub log_file: Option<PathBuf>,
 }
 
 #[derive(Debug, Copy, Clone)]

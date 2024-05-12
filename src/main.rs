@@ -7,7 +7,7 @@ use crate::{
 };
 use clap::Parser;
 use log::LevelFilter;
-use std::{io::Write, str::FromStr, time::SystemTime};
+use std::{io::Write, path::PathBuf, str::FromStr, time::SystemTime};
 
 pub mod args;
 pub mod lucas_lehmer;
@@ -15,8 +15,11 @@ pub mod mandelbrot;
 pub mod rsa;
 pub mod stress;
 
-fn setup_logger(log_level: log::LevelFilter) -> Result<(), fern::InitError> {
-    fern::Dispatch::new()
+fn setup_logger(
+    log_level: log::LevelFilter,
+    log_file: Option<PathBuf>,
+) -> Result<(), fern::InitError> {
+    let mut dispatch = fern::Dispatch::new()
         .format(|out, message, record| {
             out.finish(format_args!(
                 "[{} {} {}] {}",
@@ -27,18 +30,27 @@ fn setup_logger(log_level: log::LevelFilter) -> Result<(), fern::InitError> {
             ))
         })
         .level(log_level)
-        .chain(std::io::stdout())
-        .apply()?;
+        .chain(std::io::stdout());
+
+    if let Some(path) = log_file {
+        let file = std::fs::File::create(path).expect("Failed to create log file");
+        dispatch = dispatch.chain(file);
+    }
+
+    dispatch.apply()?;
     Ok(())
 }
 
 fn main() {
     let args = StrainArgs::parse();
-    setup_logger(if args.debug {
-        LevelFilter::Debug
-    } else {
-        LevelFilter::Info
-    })
+    setup_logger(
+        if args.debug {
+            LevelFilter::Debug
+        } else {
+            LevelFilter::Info
+        },
+        args.log_file,
+    )
     .expect("Failed to setup logger");
 
     if args.list_strategies {
