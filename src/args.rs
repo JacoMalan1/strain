@@ -39,6 +39,10 @@ pub struct StrainArgs {
     #[arg(short = 'I', long, default_value_t = 1_000_000)]
     pub mandelbrot_iterations: usize,
 
+    /// RSA public key modulus (N).
+    #[arg(short = 'M', long, default_value_t = String::from(crate::rsa::RSA_1536))]
+    pub rsa_modulus: String,
+
     /// Write logs to file
     #[arg(short = 'L', long)]
     pub log_file: Option<PathBuf>,

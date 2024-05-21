@@ -79,7 +79,7 @@ fn main() {
             rug::Float::with_val(args.mandelbrot_precision, args.mandelbrot_threshold),
             args.mandelbrot_iterations,
         )),
-        StressingStrategies::RSA => Box::new(RSA::new(threads)),
+        StressingStrategies::RSA => Box::new(RSA::new(threads, &args.rsa_modulus)),
     };
 
     log::info!("Starting {}...", strategy.name());
