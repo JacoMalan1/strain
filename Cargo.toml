@@ -6,7 +6,7 @@ description = "A CPU stressing utility written in Rust"
 license = "GPL-3.0-or-later"
 
 [dependencies]
-rug = { version = "1.25.0", features = ["default", "complex"] }
+rug = { version = "1.26.1", features = ["default", "complex"] }
 gmp-mpfr-sys = { version = "1.6.4", features = ["default", "use-system-libs"] }
 clap = { version = "4.5.23", features = ["derive"] }
 log = "0.4.22"
