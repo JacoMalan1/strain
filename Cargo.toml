@@ -10,7 +10,7 @@ rug = { version = "1.26.1", features = ["default", "complex"] }
 gmp-mpfr-sys = { version = "1.6.4", features = ["default", "use-system-libs"] }
 clap = { version = "4.5.23", features = ["derive"] }
 log = "0.4.22"
-humantime = "2.1.0"
+humantime = "2.2.0"
 fern = "0.7.1"
 
 [profile.release]
