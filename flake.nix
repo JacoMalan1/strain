@@ -21,7 +21,7 @@
 
       rustBuild = rustPlatform.buildRustPackage {
         pname = "strain";
-        version = "0.1.2";
+        version = "0.1.4";
         src = ./.;
 
         buildInputs = with pkgs; [
